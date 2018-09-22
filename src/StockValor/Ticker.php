@@ -11,18 +11,24 @@ namespace StockValor;
 
 class Ticker
 {
+    /**
+     * @var String
+     */
     private $ticker;
-    private $ultimoValor;
+    /**
+     * @var double
+     */
+    private $valor;
 
     /**
      * Ticker constructor.
      * @param $ticker
      * @param $ultimoValor
      */
-    public function __construct($ticker, $ultimoValor)
+    public function __construct($ticker, $valor)
     {
         $this->ticker = $ticker;
-        $this->ultimoValor = $ultimoValor;
+        $this->valor = $valor;
     }
 
     /**
@@ -36,9 +42,10 @@ class Ticker
     /**
      * @return mixed
      */
-    public function getUltimoValor()
+    public function getValor()
     {
-        return $this->ultimoValor;
+        return $this->valor;
     }
+
 
 }
