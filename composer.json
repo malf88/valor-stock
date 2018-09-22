@@ -1,0 +1,21 @@
+{
+    "name": "malf88/stock-valor",
+    "description": "Biblioteca para consulta de valor de ações",
+    "type": "php-curl-class",
+    "require": {
+        "php-curl-class/php-curl-class": "^8.3"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Marco Aurélio Lima Fernandes",
+            "email": "malf88@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Curl\\": "src/Curl/",
+            "StockValor\\":"src/StockValor/"
+        }
+    }
+}
