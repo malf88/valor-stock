@@ -19,16 +19,22 @@ class Ticker
      * @var double
      */
     private $valor;
+    /**
+     * @var \DateTime
+     */
+
+    private $data;
 
     /**
      * Ticker constructor.
      * @param $ticker
      * @param $ultimoValor
      */
-    public function __construct($ticker, $valor)
+    public function __construct($ticker, $valor,$data = null)
     {
         $this->ticker = $ticker;
         $this->valor = $valor;
+        $this->data = $data;
     }
 
     /**
@@ -46,6 +52,15 @@ class Ticker
     {
         return $this->valor;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+    
 
 
 }

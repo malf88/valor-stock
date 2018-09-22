@@ -7,7 +7,6 @@
  */
 include 'vendor/autoload.php';
 use StockValor\StockValor;
-use StockValor\ManipulaStockExchange;
 
 $stock = new StockValor('TIET11');
 

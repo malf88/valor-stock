@@ -44,7 +44,10 @@ class ManipulaStockExchange
     }
     private function populaObjeto($ticker,$jsonObject){
         $lastValue = end($jsonObject->result);
-        $stock = new Ticker($ticker,$lastValue->Close);
+        $data = new \DateTime();
+        $data->setTimestamp(substr($lastValue->TimePoint,0,10));
+
+        $stock = new Ticker($ticker,$lastValue->Close,$data);
         return $stock;
     }
 }
