@@ -70,6 +70,15 @@ class StockValor
     }
 
     public function getLastValor(){
+        $dataInicio = new \DateTime(date('Y-m-d'));
+        $dataInicio->setTime('09','00','00');
+
+        $dataTermino = new \DateTime(date('Y-m-d'));
+        $dataTermino->setTime('18','00','00');
+
+        $this->setDateFrom($dataInicio);
+        $this->setDateTo($dataTermino);
+
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getLastValue($this);
     }
