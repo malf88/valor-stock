@@ -7,17 +7,30 @@
  */
 include 'vendor/autoload.php';
 use StockValor\StockValor;
-use StockValor\ManipulaStockExchange;
 
-$dataInicio = new \DateTime();
-$dataInicio->setDate('2018','09','21');
-$dataInicio->setTime('10','00','00');
+/**
+ * Pegar última cotação
+ */
 
-$dataTermino = new \DateTime();
-$dataTermino->setDate('2018','09','22');
-$dataTermino->setTime('10','00','00');
-$stock = new StockValor('BRFS3', $dataInicio, $dataTermino);
+$stock = new StockValor('TIET11');
 
-$tucker = $stock->getLastValor();
+$tucker = $stock->getListValue();
+
+
+/**
+ * Pegar lista de cotações de um período
+ */
+
+$dateInicio = new DateTime();
+$dateInicio->setDate('2018','09','21');
+$dateInicio->setTime('10','00','00');
+
+$dateTermino = new DateTime();
+$dateTermino->setDate('2018','09','21');
+$dateTermino->setTime('18','00','00');
+
+$stock = new StockValor('TIET11',$dateInicio,$dateTermino);
+
+$tucker = $stock->getListValue();
 
 var_dump($tucker);
