@@ -11,6 +11,12 @@
             "email": "malf88@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=5.3.0",
+        "malf88/stock-valor": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Curl\\": "src/Curl/",
