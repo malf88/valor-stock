@@ -4,12 +4,14 @@
 <h3>Instalar</h3>
 composer require malf88/stock-valor
 
-include 'vendor/autoload.php';
-use StockValor\StockValor;
+
 
 
 <h3>Pegar última cotação</h3>
 
+include 'vendor/autoload.php';
+
+use StockValor\StockValor;
 
 $stock = new StockValor('TIET11');
 
@@ -17,6 +19,9 @@ $tucker = $stock->getListValue();
 
 <h3>Pegar lista de cotações de um período</h3>
 
+include 'vendor/autoload.php';
+
+use StockValor\StockValor;
 
 $dateInicio = new DateTime();
 
