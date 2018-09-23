@@ -38,13 +38,47 @@ class ManipulaStockExchange
         return $json;
 
     }
+
+    public function getList(StockValor $stockValor){
+        $json = $this->getJson($stockValor);
+        $list = array();
+        foreach ($json->result as $varicao){
+            $data = new \DateTime();
+
+            $list[] = $this->createTicker($stockValor->getSymbolCode(),$varicao);
+        }
+        return $list;
+    }
+    /**
+     * @param StockValor $stockValor
+     * @return Ticker
+     */
     public  function getLastValue(StockValor $stockValor){
         $json = $this->getJson($stockValor);
-        return $this->populaObjeto($stockValor->getSymbolCode(),$json);
+        return $this->populateObject($stockValor->getSymbolCode(),$json);
     }
-    private function populaObjeto($ticker,$jsonObject){
+
+    /**
+     * @param $ticker
+     * @param $jsonObject
+     * @return Ticker
+     */
+    private function populateObject($ticker,$jsonObject){
         $lastValue = end($jsonObject->result);
-        $stock = new Ticker($ticker,$lastValue->Close);
+        $data = new \DateTime();
+        $data->setTimestamp($this->getTimeStamp($lastValue->TimePoint));
+
+        $stock = new Ticker($ticker,$lastValue->Close,$data);
         return $stock;
+    }
+    public function createTicker($ticker, $variacao){
+        $data = new \DateTime();
+        $data->setTimestamp($this->getTimeStamp($variacao->TimePoint));
+        $stock = new Ticker($ticker,$variacao->Close,$data);
+        return $stock;
+
+    }
+    public function getTimeStamp($string){
+       return substr($string,0,10);
     }
 }
