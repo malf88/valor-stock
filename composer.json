@@ -4,7 +4,7 @@
     "require": {
         "php-curl-class/php-curl-class": "^8.3"
     },
-    "license": "GPL",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Marco Aurélio Lima Fernandes",
