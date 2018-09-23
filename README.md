@@ -1,6 +1,9 @@
 #valor-stock
 <h2>Como usar</h2>
 
+<h3>Instalar</h3>
+composer require malf88/stock-valor
+
 include 'vendor/autoload.php';
 use StockValor\StockValor;
 
