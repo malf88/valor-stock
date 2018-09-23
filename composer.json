@@ -1,6 +1,6 @@
 {
     "name": "malf88/stock-valor",
-    "description": "Biblioteca para consulta de valor de ações",
+    "description": "Biblioteca para consulta de valor de ações utilizando o json do valor economico",
     "require": {
         "php-curl-class/php-curl-class": "^8.3"
     },
