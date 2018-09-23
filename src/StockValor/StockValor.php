@@ -69,7 +69,7 @@ class StockValor
         return $manipulador->getJson($this);
     }
 
-    public function getLastValor(){
+    public function getLastValue(){
         $dataInicio = new \DateTime(date('Y-m-d'));
         $dataInicio->setTime('09','00','00');
 
@@ -81,6 +81,10 @@ class StockValor
 
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getLastValue($this);
+    }
+    public function getListValue(){
+        $manipulador = new ManipulaStockExchange();
+        return $manipulador->getList($this);
     }
     /**
      * @return string
