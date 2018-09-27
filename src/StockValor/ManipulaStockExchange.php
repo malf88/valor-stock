@@ -21,7 +21,6 @@ class ManipulaStockExchange
     }
 
     public function getJson(StockValor $stockValor){
-        $this->cURL->setHeader('Content-type','text/json');
         $this->cURL->get($stockValor->getURL(),array(
                                                         'module' => 'valor_data',
                                                         'action' => $stockValor->getAction(),
@@ -38,7 +37,9 @@ class ManipulaStockExchange
         return $json;
 
     }
-
+    public function getCurl(){
+        return $this->cURL;
+    }
     public function getList(StockValor $stockValor){
         $json = $this->getJson($stockValor);
         $list = array();
