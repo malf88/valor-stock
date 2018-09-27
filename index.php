@@ -20,7 +20,7 @@ $tucker = $stock->getListValue();
 /**
  * Pegar lista de cotações de um período
  */
-
+$stock->getStatus();
 $dateInicio = new DateTime();
 $dateInicio->setDate('2018','09','21');
 $dateInicio->setTime('10','00','00');

@@ -86,6 +86,12 @@ class StockValor
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getList($this);
     }
+    public function getStatus(){
+        $manipulador = new ManipulaStockExchange();
+        $manipulador->getCurl()->get($this->getURL());
+        return($manipulador->getCurl()->getHttpStatusCode() == '200');
+    }
+
     /**
      * @return string
      */
