@@ -73,12 +73,16 @@ class ManipulaStockExchange
      * @return Ticker
      */
     private function populateObject($ticker,$jsonObject){
-        $lastValue = end($jsonObject->result);
-        $data = new \DateTime();
-        $data->setTimestamp($this->getTimeStamp($lastValue->TimePoint));
+        if(is_array($jsonObject->result) && count($jsonObject->result) > 0) {
+            $lastValue = end($jsonObject->result);
+            $data = new \DateTime();
+            $data->setTimestamp($this->getTimeStamp($lastValue->TimePoint));
 
-        $stock = new Ticker($ticker,$lastValue->Close,$data);
-        return $stock;
+            $stock = new Ticker($ticker, $lastValue->Close, $data);
+            return $stock;
+        }else{
+            throw new \Exception('Erro ao popular objeto');
+        }
     }
 
     /**

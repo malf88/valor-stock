@@ -71,10 +71,10 @@ class StockValor
 
     public function getLastValue(){
         $dataInicio = new \DateTime(date('Y-m-d'));
-        $dataInicio->setTime('09','00','00');
+        $dataInicio->setTime(date('H'),date('i'),date('s'));
 
         $dataTermino = new \DateTime(date('Y-m-d'));
-        $dataTermino->setTime('18','00','00');
+        $dataTermino->setTime(date('H'),date('i'),date('s'));
 
         $this->setDateFrom($dataInicio);
         $this->setDateTo($dataTermino);
