@@ -41,14 +41,22 @@ class ManipulaStockExchange
         return $this->cURL;
     }
     public function getList(StockValor $stockValor){
+
         $json = $this->getJson($stockValor);
         $list = array();
-        foreach ($json->result as $varicao){
-            $data = new \DateTime();
+        try {
+            if(count($json->result) > 0) {
+                foreach ($json->result as $varicao) {
 
-            $list[] = $this->createTicker($stockValor->getSymbolCode(),$varicao);
+                    $list[] = $this->createTicker($stockValor->getSymbolCode(), $varicao);
+                }
+                return $list;
+            }else{
+                throw new \Exception('Ticker não encontrado');
+            }
+        }catch (\Exception $e){
+            throw $e;
         }
-        return $list;
     }
     /**
      * @param StockValor $stockValor
@@ -72,11 +80,22 @@ class ManipulaStockExchange
         $stock = new Ticker($ticker,$lastValue->Close,$data);
         return $stock;
     }
+
+    /**
+     * @param $ticker
+     * @param $variacao
+     * @return Ticker
+     * @throws \Exception
+     */
     public function createTicker($ticker, $variacao){
         $data = new \DateTime();
-        $data->setTimestamp($this->getTimeStamp($variacao->TimePoint));
-        $stock = new Ticker($ticker,$variacao->Close,$data);
-        return $stock;
+        if(!empty($variacao->TimePoint) && !empty($variacao->Close)) {
+            $data->setTimestamp($this->getTimeStamp($variacao->TimePoint));
+            $stock = new Ticker($ticker, $variacao->Close, $data);
+            return $stock;
+        }else{
+            throw new \Exception('Erro ao buscar informações do ticker');
+        }
 
     }
     public function getTimeStamp($string){
