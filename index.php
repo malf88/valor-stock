@@ -22,14 +22,14 @@ $tucker = $stock->getListValue();
  */
 $stock->getStatus();
 $dateInicio = new DateTime();
-$dateInicio->setDate('2018','09','21');
+$dateInicio->setDate('2018','10','08');
 $dateInicio->setTime('10','00','00');
 
 $dateTermino = new DateTime();
-$dateTermino->setDate('2018','09','21');
+$dateTermino->setDate('2018','10','08');
 $dateTermino->setTime('18','00','00');
 
-$stock = new StockValor('TIET11',$dateInicio,$dateTermino);
+$stock = new StockValor('CMIG5',$dateInicio,$dateTermino);
 
 $tucker = $stock->getListValue();
 
