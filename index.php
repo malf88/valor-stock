@@ -22,15 +22,15 @@ $tucker = $stock->getListValue();
  */
 $stock->getStatus();
 $dateInicio = new DateTime();
-$dateInicio->setDate('2018','10','08');
+$dateInicio->setDate('2018','10','04');
 $dateInicio->setTime('10','00','00');
 
 $dateTermino = new DateTime();
-$dateTermino->setDate('2018','10','08');
+$dateTermino->setDate('2018','10','04');
 $dateTermino->setTime('18','00','00');
 
-$stock = new StockValor('CMIG5',$dateInicio,$dateTermino);
+$stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
 
-$tucker = $stock->getListValue();
+$tucker = $stock->getLastValue();
 
 var_dump($tucker);
