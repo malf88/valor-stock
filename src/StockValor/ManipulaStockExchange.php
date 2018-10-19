@@ -40,7 +40,6 @@ class ManipulaStockExchange
             return $json;
         }else{
             $json = json_decode($this->getJsonInfomoney($stockValor));
-
             return $json;
         }
 
@@ -51,14 +50,15 @@ class ManipulaStockExchange
                 'stockcode' => $stockValor->getSymbolCode()
             )
         );
-
+        if($this->cURL->getHttpStatusCode() != '200') throw new \Exception('Ticker não encontrado');
         $dados = explode("\r\n",$this->cURL->response);
 
         $variacao['result'] = array();
         foreach ($dados as $key => $dado){
-            if(empty($dado)) continue;
+
             $info = explode(';',$dado);
 
+            if(count($info) <= 1) continue;
             $json['result'][$key]['Close'] = $info[1];
             $data = \DateTime::createFromFormat('Y-m-d H:i',$info[0],new \DateTimeZone('America/Sao_Paulo'));
 
