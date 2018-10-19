@@ -21,6 +21,7 @@ class ManipulaStockExchange
     }
 
     public function getJson(StockValor $stockValor){
+
         $this->cURL->get($stockValor->getURL(),array(
                                                         'module' => 'valor_data',
                                                         'action' => $stockValor->getAction(),
