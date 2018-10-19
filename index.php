@@ -12,7 +12,7 @@ use StockValor\StockValor;
  * Pegar última cotação
  */
 
-$stock = new StockValor('TIET11');
+$stock = new StockValor('BCFF11');
 
 $tucker = $stock->getListValue();
 
