@@ -32,9 +32,39 @@ class ManipulaStockExchange
                                                         'period' => $stockValor->getPeriod()
                                                     )
         );
-
         $json = json_decode($this->cURL->response);
-        return $json;
+
+        if(isset($json->result)){
+            $json = json_decode($this->cURL->response);
+            return $json;
+        }else{
+            $json = json_decode($this->getJsonInfomoney($stockValor));
+
+            return $json;
+        }
+
+    }
+    public function getJsonInfomoney(StockValor $stockValor){
+        $this->cURL->get($stockValor->getURLInfomoney(),array(
+                'chart' => 'Intraday',
+                'stockcode' => $stockValor->getSymbolCode()
+            )
+        );
+
+        $dados = explode("\r\n",$this->cURL->response);
+
+        $variacao['result'] = array();
+        foreach ($dados as $key => $dado){
+            if(empty($dado)) continue;
+            $info = explode(';',$dado);
+
+            $json['result'][$key]['Close'] = $info[1];
+            $data = \DateTime::createFromFormat('Y-m-d H:i',$info[0],new \DateTimeZone('America/Sao_Paulo'));
+
+            $json['result'][$key]['TimePoint'] = $data->getTimestamp();
+        }
+
+        return json_encode($json);
 
     }
     public function getCurl(){
@@ -45,6 +75,7 @@ class ManipulaStockExchange
         $json = $this->getJson($stockValor);
         $list = array();
         try {
+
             if(count($json->result) > 0) {
                 foreach ($json->result as $varicao) {
 
@@ -73,6 +104,7 @@ class ManipulaStockExchange
      * @return Ticker
      */
     private function populateObject($ticker,$jsonObject){
+
         if(is_array($jsonObject->result) && count($jsonObject->result) > 0) {
             $lastValue = end($jsonObject->result);
             $data = new \DateTime();

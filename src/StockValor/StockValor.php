@@ -12,6 +12,7 @@ namespace StockValor;
 class StockValor
 {
     const URL_VALOR_DATA = "https://www.valor.com.br/json.php";//?module=valor_data
+    const URL_INFOMONEY_DATA = "https://www.infomoney.com.br/services/getdata.ashx";//?module=valor_data
     /**
      * @var string
      */
@@ -62,6 +63,10 @@ class StockValor
     public function getURL()
     {
         return self::URL_VALOR_DATA;
+    }
+    public function getURLInfomoney()
+    {
+        return self::URL_INFOMONEY_DATA;
     }
 
     public function getJson(){
