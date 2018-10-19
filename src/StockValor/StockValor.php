@@ -94,7 +94,11 @@ class StockValor
     public function getStatus(){
         $manipulador = new ManipulaStockExchange();
         $manipulador->getCurl()->get($this->getURL());
-        return($manipulador->getCurl()->getHttpStatusCode() == '200');
+        $statusValor = $manipulador->getCurl()->getHttpStatusCode();
+        $manipulador->getCurl()->get($this->getURLInfomoney());
+        $statusInfomoney = $manipulador->getCurl()->getHttpStatusCode();
+
+        return($statusInfomoney == '200' || $statusValor == '200');
     }
 
     /**
