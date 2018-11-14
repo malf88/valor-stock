@@ -44,6 +44,48 @@ class ManipulaStockExchange
         }
 
     }
+
+    public function getInfoRealTime(StockValor $stockValor){
+        if($stockValor->getIdClientEasyvest() == null){
+            throw new \Exception('Informe o id de cliente da easyinvest para utilizar a cotação em tempo real');
+        }
+
+        $this->cURL->get($stockValor->getUrlRealTime(),array(
+                'q' => $stockValor->getSymbolCode(),
+                'c' => $stockValor->getIdClientEasyvest(),
+                't' => 'webgateway'
+            )
+        );
+        print '<pre>';
+        //var_dump($this->cURL->response);
+        $cotacao = $this->cURL->response->Value[0]->Ps;
+
+        $data = $this->manipulaDataEasyinvest($cotacao->LTDT);
+
+        $ticker = new Ticker($cotacao->S,$cotacao->AP,$data);
+
+        return $ticker;
+
+
+
+    }
+
+    public function manipulaDataEasyinvest($data){
+
+        $ano = substr($data,0,4);
+        $mes = substr($data,4,2);
+        $dia = substr($data,6,2);
+        $hora = substr($data,8,2);
+        $minuto = substr($data,10,2);
+        $segundo = substr($data,12,2);
+
+        $data = new \DateTime();
+        $data->setDate($ano,$mes,$dia);
+        $data->setTime($hora,$minuto,$segundo);
+        return $data;
+
+    }
+
     public function getJsonInfomoney(StockValor $stockValor){
         $this->cURL->get($stockValor->getURLInfomoney(),array(
                 'chart' => 'Intraday',
