@@ -31,7 +31,7 @@ $dateTermino->setTime('18','00','00');
 
 $stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
  */
-$stock->setIdClientEasyvest('6536185');
+$stock->setIdClientEasyvest('IDCLIENTE');
 $tucker = $stock->getValue();
 
 var_dump($tucker);

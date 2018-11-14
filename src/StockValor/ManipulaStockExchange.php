@@ -56,12 +56,9 @@ class ManipulaStockExchange
                 't' => 'webgateway'
             )
         );
-        print '<pre>';
-        //var_dump($this->cURL->response);
+
         $cotacao = $this->cURL->response->Value[0]->Ps;
-
         $data = $this->manipulaDataEasyinvest($cotacao->LTDT);
-
         $ticker = new Ticker($cotacao->S,$cotacao->AP,$data);
 
         return $ticker;
