@@ -13,6 +13,7 @@ class StockValor
 {
     const URL_VALOR_DATA = "https://www.valor.com.br/json.php";//?module=valor_data
     const URL_INFOMONEY_DATA = "https://www.infomoney.com.br/services/getdata.ashx";//?module=valor_data
+    const URL_TEMPO_REAL = "https://mdgateway06.easynvest.com.br/iwg/snapshot/";//?module=valor_data
     /**
      * @var string
      */
@@ -22,6 +23,12 @@ class StockValor
      * @var string
      */
     private $symbolCode = 'IBOV';
+
+    /**
+     * @var string
+     */
+
+    private $idClientEasyvest = null;
     /**
      * @var int
      */
@@ -68,7 +75,9 @@ class StockValor
     {
         return self::URL_INFOMONEY_DATA;
     }
-
+    public function getUrlRealTime(){
+        return self::URL_TEMPO_REAL;
+    }
     public function getJson(){
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getJson($this);
@@ -99,6 +108,11 @@ class StockValor
         $statusInfomoney = $manipulador->getCurl()->getHttpStatusCode();
 
         return($statusInfomoney == '200' || $statusValor == '200');
+    }
+    public function getValue(){
+        $manipulador = new ManipulaStockExchange();
+        return $manipulador->getInfoRealTime($this);
+
     }
 
     /**
@@ -180,6 +194,25 @@ class StockValor
     {
         return $this->period;
     }
+
+    /**
+     * @return string
+     */
+    public function getIdClientEasyvest()
+    {
+        return $this->idClientEasyvest;
+    }
+
+    /**
+     * @param string $idClientEasyvest
+     * @return StockValor
+     */
+    public function setIdClientEasyvest($idClientEasyvest)
+    {
+        $this->idClientEasyvest = $idClientEasyvest;
+        return $this;
+    }
+
 
 
 

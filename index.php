@@ -12,14 +12,14 @@ use StockValor\StockValor;
  * Pegar última cotação
  */
 
-$stock = new StockValor('BCFF11');
+$stock = new StockValor('BRFS3');
 
-$tucker = $stock->getListValue();
+//$tucker = $stock->getListValue();
 
 
 /**
  * Pegar lista de cotações de um período
- */
+
 var_dump($stock->getStatus());
 $dateInicio = new DateTime();
 $dateInicio->setDate('2018','10','04');
@@ -30,7 +30,8 @@ $dateTermino->setDate('2018','10','04');
 $dateTermino->setTime('18','00','00');
 
 $stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
-
-$tucker = $stock->getLastValue();
+ */
+$stock->setIdClientEasyvest('IDCLIENTE');
+$tucker = $stock->getValue();
 
 var_dump($tucker);
