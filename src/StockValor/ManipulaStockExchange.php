@@ -59,7 +59,7 @@ class ManipulaStockExchange
 
         $cotacao = $this->cURL->response->Value[0]->Ps;
         $data = $this->manipulaDataEasyinvest($cotacao->LTDT);
-        $ticker = new Ticker($cotacao->S,$cotacao->AP,$data);
+        $ticker = new Ticker($cotacao->S,$cotacao->P,$data);
 
         return $ticker;
 
