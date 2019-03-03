@@ -8,6 +8,7 @@
 
 namespace StockValor;
 use Curl\Curl;
+use Dotenv\Dotenv;
 
 class ManipulaStockExchange
 {
@@ -17,6 +18,8 @@ class ManipulaStockExchange
     private $cURL = null;
     public function __construct()
     {
+        $dotenv = Dotenv::create(__DIR__.'/../../');
+        $dotenv->load();
         $this->cURL = new Curl();
     }
 
@@ -49,8 +52,11 @@ class ManipulaStockExchange
         if($stockValor->getIdClientEasyvest() == null){
             throw new \Exception('Informe o id de cliente da easyinvest para utilizar a cotação em tempo real');
         }
-
-        $this->cURL->get($stockValor->getUrlRealTime(),array(
+        $url = $stockValor->getUrlRealTime();
+        if(getenv('URL_STOCK_VALOR_REAL_TIME')){
+            $url = getenv('URL_STOCK_VALOR_REAL_TIME');
+        }
+        $this->cURL->get($url,array(
                 'q' => $stockValor->getSymbolCode(),
                 'c' => $stockValor->getIdClientEasyvest(),
                 't' => 'webgateway'
