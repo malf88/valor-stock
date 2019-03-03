@@ -1,9 +1,9 @@
 {
-    "name": "malf88/stock-valor",
-    "description": "Biblioteca para consulta de valor de ações utilizando o json do valor economico",
-    "require": {
-        "php-curl-class/php-curl-class": "^8.3",
-        "php": ">=5.3.0"
+    "name": "marcoaurelio/stock-valor",
+    "type": "library",
+    "require-dev": {
+        "vlucas/phpdotenv": "^3.3@dev",
+        "php-curl-class/php-curl-class": "dev-master"
     },
     "license": "BSD-2-Clause",
     "authors": [
@@ -12,7 +12,6 @@
             "email": "malf88@gmail.com"
         }
     ],
-
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
@@ -20,5 +19,7 @@
             "Curl\\": "src/Curl/",
             "StockValor\\":"src/StockValor/"
         }
-    }
+    },
+
+    "require": {}
 }
