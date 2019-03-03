@@ -13,7 +13,7 @@ class StockValor
 {
     const URL_VALOR_DATA = "https://www.valor.com.br/json.php";//?module=valor_data
     const URL_INFOMONEY_DATA = "https://www.infomoney.com.br/services/getdata.ashx";//?module=valor_data
-    const URL_TEMPO_REAL = "https://mdgateway06.easynvest.com.br/iwg/snapshot/";//?module=valor_data
+    const URL_TEMPO_REAL = "https://mdgateway02.easynvest.com.br/iwg/snapshot/";
     /**
      * @var string
      */
