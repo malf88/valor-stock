@@ -18,8 +18,7 @@ class ManipulaStockExchange
     private $cURL = null;
     public function __construct()
     {
-        $dotenv = Dotenv::create(__DIR__.'/../../');
-        $dotenv->load();
+        
         $this->cURL = new Curl();
     }
 
