@@ -47,13 +47,21 @@ class ManipulaStockExchange
 
     }
 
-    public function getInfoRealTime(StockValor $stockValor){
+    public function _getenv($env){
+        if(function_exists('env')){
+            env($env);
+        }else{
+            getenv($env);
+        }
+    }
+
+    public function curlRealTime(StockValor $stockValor){
         if($stockValor->getIdClientEasyvest() == null){
             throw new \Exception('Informe o id de cliente da easyinvest para utilizar a cotação em tempo real');
         }
         $url = $stockValor->getUrlRealTime();
-        if(getenv('URL_STOCK_VALOR_REAL_TIME')){
-            $url = getenv('URL_STOCK_VALOR_REAL_TIME');
+        if($this->_getenv('URL_STOCK_VALOR_REAL_TIME')){
+            $url = $this->_getenv('URL_STOCK_VALOR_REAL_TIME');
         }
         $this->cURL->get($url,array(
                 'q' => $stockValor->getSymbolCode(),
@@ -61,14 +69,27 @@ class ManipulaStockExchange
                 't' => 'webgateway'
             )
         );
+        return $this->cURL->response;
+    }
+    public function getInfoRealTime(StockValor $stockValor){
 
-        $cotacao = $this->cURL->response->Value[0]->Ps;
+        $curl = $this->curlRealTime($stockValor);
+        $cotacao = $curl->Value[0]->Ps;
+
         $data = $this->manipulaDataEasyinvest($cotacao->LTDT);
         $ticker = new Ticker($cotacao->S,$cotacao->P,$data);
 
         return $ticker;
 
 
+
+    }
+
+    public function getIBOV(StockValor $stockValor){
+        $stockValor->setSymbolCode('IBOV');
+        $curl = $this->curlRealTime($stockValor);
+        $cotacao = $curl->Value[0]->Ps;
+        return $cotacao->P;
 
     }
 

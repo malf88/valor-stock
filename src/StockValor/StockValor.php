@@ -64,7 +64,7 @@ class StockValor
         $this->symbolCode = $symbolCode;
 
         $this->dateFrom =($dateFrom != null)? $dateFrom : new \DateTime();
-        $this->dateTo =($dateTo != null)? $dateTo : new \DateTime();;
+        $this->dateTo =($dateTo != null)? $dateTo : new \DateTime();
     }
 
     public function getURL()
@@ -212,7 +212,11 @@ class StockValor
         $this->idClientEasyvest = $idClientEasyvest;
         return $this;
     }
+    public function getIbov(){
+        $manipulador = new ManipulaStockExchange();
 
+        return (double)$manipulador->getIBOV($this);
+    }
 
 
 

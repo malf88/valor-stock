@@ -12,7 +12,7 @@ use StockValor\StockValor;
  * Pegar última cotação
  */
 
-$stock = new StockValor('BRFS3');
+$stock = new StockValor('IBOV');
 
 //$tucker = $stock->getListValue();
 
@@ -31,7 +31,12 @@ $dateTermino->setTime('18','00','00');
 
 $stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
  */
-$stock->setIdClientEasyvest('IDCLIENTE');
+$stock->setIdClientEasyvest('IDEASEYINVEST');
+
 $tucker = $stock->getValue();
+
+$tucker = $stock->getIbov();
+echo $tucker->getValor();
+
 
 var_dump($tucker);
