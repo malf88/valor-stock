@@ -97,7 +97,7 @@ class ManipulaStockExchange
         $stockValor->setSymbolCode('IBOV');
         $curl = $this->curlRealTime($stockValor);
         $cotacao = $curl->Value[0]->Ps;
-        
+
         return ((($cotacao->OP * 100) / $cotacao->P)-100);
 
     }
