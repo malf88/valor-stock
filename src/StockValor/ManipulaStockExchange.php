@@ -93,6 +93,15 @@ class ManipulaStockExchange
 
     }
 
+    public function getIBOVVariacao(StockValor $stockValor){
+        $stockValor->setSymbolCode('IBOV');
+        $curl = $this->curlRealTime($stockValor);
+        $cotacao = $curl->Value[0]->Ps;
+        
+        return ((($cotacao->OP * 100) / $cotacao->P)-100);
+
+    }
+
     public function manipulaDataEasyinvest($data){
 
         $ano = substr($data,0,4);

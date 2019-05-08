@@ -31,12 +31,11 @@ $dateTermino->setTime('18','00','00');
 
 $stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
  */
-$stock->setIdClientEasyvest('IDEASEYINVEST');
+$stock->setIdClientEasyvest('6536185');
 
-$tucker = $stock->getValue();
+//$tucker = $stock->getValue();
 
-$tucker = $stock->getIbov();
-echo $tucker->getValor();
+$tucker = $stock->getIbovVariacao();
 
 
 var_dump($tucker);

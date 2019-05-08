@@ -217,6 +217,11 @@ class StockValor
 
         return (double)$manipulador->getIBOV($this);
     }
+    public function getIbovVariacao(){
+        $manipulador = new ManipulaStockExchange();
+
+        return (double)$manipulador->getIBOVVariacao($this);
+    }
 
 
 
