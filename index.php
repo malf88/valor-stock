@@ -34,8 +34,8 @@ $stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
 $stock->setIdClientEasyvest('IDEASYINVEST');
 
 //$tucker = $stock->getValue();
-
-$tucker = $stock->getIbovVariacao();
+$tucker = $stock->getIbov();
+//$tucker = $stock->getIbovVariacao();
 
 
 var_dump($tucker);
