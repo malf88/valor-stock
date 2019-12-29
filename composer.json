@@ -2,8 +2,7 @@
     "name": "marcoaurelio/stock-valor",
     "type": "library",
     "require-dev": {
-        "vlucas/phpdotenv": "^3.3@dev",
-        "php-curl-class/php-curl-class": "dev-master"
+        "vlucas/phpdotenv": "^3.3@dev"
     },
     "license": "BSD-2-Clause",
     "authors": [
@@ -21,5 +20,7 @@
         }
     },
 
-    "require": {}
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    }
 }

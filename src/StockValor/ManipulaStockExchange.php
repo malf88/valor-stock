@@ -63,13 +63,12 @@ class ManipulaStockExchange
         if($this->_getenv('URL_STOCK_VALOR_REAL_TIME')){
             $url = $this->_getenv('URL_STOCK_VALOR_REAL_TIME');
         }
-        $this->cURL->get($url,array(
-                'q' => $stockValor->getSymbolCode(),
-                'c' => $stockValor->getIdClientEasyvest(),
-                't' => 'webgateway'
-            )
-        );
-        return $this->cURL->response;
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get($url.'?q='.$stockValor->getSymbolCode().'&c='.$stockValor->getIdClientEasyvest().'&t=webgateway');
+
+        //print_r($response->getBody()->getContents());
+        return json_decode($response->getBody()->getContents());
     }
     public function getInfoRealTime(StockValor $stockValor){
 
@@ -96,6 +95,7 @@ class ManipulaStockExchange
     public function getIBOVVariacao(StockValor $stockValor){
         $stockValor->setSymbolCode('IBOV');
         $curl = $this->curlRealTime($stockValor);
+
         $cotacao = $curl->Value[0]->Ps;
         return  ((($cotacao->P * 100) / $cotacao->OP) - 100);
 
