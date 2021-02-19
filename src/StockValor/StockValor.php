@@ -8,11 +8,12 @@
 
 namespace StockValor;
 
+use DateTime;
 
 class StockValor
 {
     const URL_VALOR_DATA = "https://www.valor.com.br/json.php";//?module=valor_data
-    const URL_INFOMONEY_DATA = "https://www.infomoney.com.br/services/getdata.ashx";//?module=valor_data
+    const URL_INFOMONEY_DATA = "https://marketdata-streamer.smarttbot.com/data/candles/day/IBOV/?";//?module=valor_data
     const URL_TEMPO_REAL = "https://mdgateway01.easynvest.com.br/iwg/snapshot/";
     /**
      * @var string
@@ -71,17 +72,33 @@ class StockValor
     {
         return self::URL_VALOR_DATA;
     }
+    /**
+     * Undocumented function
+     * @deprecated 
+     * @return void
+     */
     public function getURLInfomoney()
     {
         return self::URL_INFOMONEY_DATA;
     }
+    /**
+     * Undocumented function
+     * @deprecated
+     *
+     * @return void
+     */
     public function getUrlRealTime(){
         return self::URL_TEMPO_REAL;
     }
+
     public function getJson(){
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getJson($this);
     }
+
+    /**
+     * @deprecated 
+     */
 
     public function getLastValue(){
         $dataInicio = new \DateTime(date('Y-m-d'));
@@ -96,6 +113,9 @@ class StockValor
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getLastValue($this);
     }
+
+    
+
     public function getListValue(){
         $manipulador = new ManipulaStockExchange();
         return $manipulador->getList($this);
@@ -222,7 +242,11 @@ class StockValor
 
         return (double)$manipulador->getIBOVVariacao($this);
     }
+    public function getLastValueInDate(DateTime $date){
+        $manipulador = new ManipulaStockExchange();
 
+        return $manipulador->getLastValueInDate($this,$date);
+    }
 
 
 }
