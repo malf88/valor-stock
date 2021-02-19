@@ -8,20 +8,30 @@
 
 namespace StockValor;
 use Curl\Curl;
+use DateTime;
 use Dotenv\Dotenv;
+use Exception;
+use GuzzleHttp\Client;
 
 class ManipulaStockExchange
 {
     /**
      * @var Curl
      */
+
+    const URL_DATA = 'https://marketdata-streamer.smarttbot.com/data/candles/day/';
     private $cURL = null;
     public function __construct()
     {
         
-        $this->cURL = new Curl();
+        $this->cURL = new Client();
     }
-
+    /**
+     * Undocumented function
+     * @deprecated 
+     * @param StockValor $stockValor
+     * @return void
+     */
     public function getJson(StockValor $stockValor){
 
         $this->cURL->get($stockValor->getURL(),array(
@@ -35,17 +45,11 @@ class ManipulaStockExchange
                                                         'period' => $stockValor->getPeriod()
                                                     )
         );
-        $json = json_decode($this->cURL->response);
-
-        if(isset($json->result)){
-            $json = json_decode($this->cURL->response);
-            return $json;
-        }else{
-            $json = json_decode($this->getJsonInfomoney($stockValor));
-            return $json;
-        }
+        
 
     }
+
+    
 
     public function _getenv($env){
         if(function_exists('env')){
@@ -210,5 +214,51 @@ class ManipulaStockExchange
     }
     public function getTimeStamp($string){
        return substr($string,0,10);
+    }
+
+    public function getJsonObject(StockValor $stockValor){
+        $request = $this->cURL->get(self::URL_DATA.$stockValor->getSymbolCode().'/',['query'=>array(
+                                                        'token' => 'v8D28VphLj8ngWgiyPwo5bCJLYwTbmkI3DqpimlwhHc=',
+                                                        'start_datetime' => $stockValor->getDateFrom()->format('Y-m-d\TH:i:s'),
+                                                        'end_datetime' => $stockValor->getDateTo()->format('Y-m-d\TH:i:s'),
+                                                        'username' => '_',
+                                                        'data_type' => 'delay',
+                                                        'origin'    =>  'bussola',
+                                                        'expiration_date' => '1613778597951'
+                                                    )]
+        );
+        
+        return json_decode( $request->getBody()->getContents());
+        
+
+    }
+
+    public function getListStockObject(StockValor $stockValor){
+        $arrayList = $this->getJsonObject($stockValor);
+        
+        $listResult = [];
+
+        foreach($arrayList as $item){
+            $listResult[] = new Ticker($stockValor->getSymbolCode(),$item->close,new DateTime($item->datetime));
+        }
+        return $listResult;
+    }
+
+    public function getLastValueInDate(StockValor $stockValor,DateTime $date){
+        $dataInicio = new DateTime($date->format('Y-m-d 00:00:00'));
+
+        $dataTermino = new DateTime($date->format('Y-m-d 23:59:59'));
+
+        $stockValor->setDateFrom($dataInicio);
+        $stockValor->setDateTo($dataTermino);
+        
+        $listObject = $this->getListStockObject($stockValor);
+        
+
+        if(count($listObject) > 1){
+            throw new Exception('A data escolhida retorna mais de um registro');
+        }
+        return $listObject;
+
     }
 }

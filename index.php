@@ -19,23 +19,24 @@ $stock = new StockValor('IBOV');
 
 /**
  * Pegar lista de cotações de um período
-
-var_dump($stock->getStatus());
+**/
+//var_dump($stock->getStatus());
 $dateInicio = new DateTime();
 $dateInicio->setDate('2018','10','04');
 $dateInicio->setTime('10','00','00');
 
 $dateTermino = new DateTime();
-$dateTermino->setDate('2018','10','04');
+$dateTermino->setDate('2019','10','04');
 $dateTermino->setTime('18','00','00');
 
-$stock = new StockValor('VVAR11',$dateInicio,$dateTermino);
- */
-$stock->setIdClientEasyvest('IDEASYINVEST');
+$stock = new StockValor('IBOV',$dateInicio,$dateTermino);
+ 
+//$stock->setIdClientEasyvest('IDEASYINVEST');
 
 //$tucker = $stock->getValue();
-$tucker = $stock->getIbov();
+//$tucker = $stock->getIbov();
 //$tucker = $stock->getIbovVariacao();
+//$stock->setDateFrom($dateInicio);
+//$stock->setDateTo($dataTermino);
 
-
-var_dump($tucker);
+var_dump($stock->getLastValueInDate(new DateTime('2021-02-18')));
