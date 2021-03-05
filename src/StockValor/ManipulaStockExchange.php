@@ -19,7 +19,11 @@ class ManipulaStockExchange
      * @var Curl
      */
 
-    const URL_DATA = 'https://marketdata-streamer.smarttbot.com/data/candles/day/';
+    const URL_DATA_INDICE = 'https://statusinvest.com.br/indice/tickerpricerange';
+    const URL_DATA_CATEGORY = 'https://statusinvest.com.br/category/tickerpricerange';
+    const TYPE_STOCK_CATEGORY = 'category';
+    const TYPE_STOCK_INDEX = 'index';
+
     private $cURL = null;
     public function __construct()
     {
@@ -215,44 +219,55 @@ class ManipulaStockExchange
     public function getTimeStamp($string){
        return substr($string,0,10);
     }
-
-    public function getJsonObject(StockValor $stockValor){
-        $request = $this->cURL->get(self::URL_DATA.$stockValor->getSymbolCode().'/',['query'=>array(
-                                                        'token' => 'v8D28VphLj8ngWgiyPwo5bCJLYwTbmkI3DqpimlwhHc=',
-                                                        'start_datetime' => $stockValor->getDateFrom()->format('Y-m-d\TH:i:s'),
-                                                        'end_datetime' => $stockValor->getDateTo()->format('Y-m-d\TH:i:s'),
-                                                        'username' => '_',
-                                                        'data_type' => 'delay',
-                                                        'origin'    =>  'bussola',
-                                                        'expiration_date' => '1613778597951'
-                                                    )]
+    
+    public function getJsonObject(StockValor $stockValor,$type = self::TYPE_STOCK_CATEGORY){
+        if($type == self::TYPE_STOCK_CATEGORY){
+            $url = self::URL_DATA_CATEGORY;
+        }else{
+            $url = self::URL_DATA_INDICE;
+        }
+        $request = $this->cURL->get($url,['query'=>array(
+            'ticker' => $stockValor->getSymbolCode(),
+            'start' => $stockValor->getDateFrom()->format('Y-m-d'),
+            'end' => $stockValor->getDateTo()->format('Y-m-d')
+            )]
         );
-        
+       // var_dump($stockValor);
         return json_decode( $request->getBody()->getContents());
         
 
     }
 
-    public function getListStockObject(StockValor $stockValor){
-        $arrayList = $this->getJsonObject($stockValor);
+    public function getListStockObject(StockValor $stockValor,$type = self::TYPE_STOCK_CATEGORY){
+        $arrayList = $this->getJsonObject($stockValor,$type);
         
         $listResult = [];
-
-        foreach($arrayList as $item){
-            $listResult[] = new Ticker($stockValor->getSymbolCode(),$item->close,new DateTime($item->datetime));
+        
+        foreach($arrayList->data as $item){
+            //var_dump($item[0]);
+            if($type == 'category'){
+                
+                //foreach($item->prices as $price){
+                    $listResult[] = new Ticker($stockValor->getSymbolCode(),$item[0]->price,$stockValor->getDateTo());
+                //}
+            }else{
+                $listResult[] = new Ticker($stockValor->getSymbolCode(),$item->price,$stockValor->getDateTo());
+            }
+            
         }
+        
         return $listResult;
     }
 
-    public function getLastValueInDate(StockValor $stockValor,DateTime $date){
-        $dataInicio = new DateTime($date->format('Y-m-d 00:00:00'));
+    public function getLastValueInDate(StockValor $stockValor,DateTime $date,$type = self::TYPE_STOCK_CATEGORY){
+        $dataInicio = new DateTime($date->format('Y-m-d'));
 
-        $dataTermino = new DateTime($date->format('Y-m-d 23:59:59'));
+        $dataTermino = new DateTime($date->format('Y-m-d'));
 
         $stockValor->setDateFrom($dataInicio);
         $stockValor->setDateTo($dataTermino);
         
-        $listObject = $this->getListStockObject($stockValor);
+        $listObject = $this->getListStockObject($stockValor,$type);
         
 
         if(count($listObject) > 1){

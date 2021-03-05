@@ -242,10 +242,10 @@ class StockValor
 
         return (double)$manipulador->getIBOVVariacao($this);
     }
-    public function getLastValueInDate(DateTime $date){
+    public function getLastValueInDate(DateTime $date,$type = ManipulaStockExchange::TYPE_STOCK_CATEGORY){
         $manipulador = new ManipulaStockExchange();
 
-        return $manipulador->getLastValueInDate($this,$date);
+        return $manipulador->getLastValueInDate($this,$date,$type);
     }
 
 

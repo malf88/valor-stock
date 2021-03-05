@@ -6,16 +6,19 @@
  * Time: 23:52
  */
 include 'vendor/autoload.php';
+
+use StockValor\ManipulaStockExchange;
 use StockValor\StockValor;
 
 /**
  * Pegar última cotação
  */
 
-$stock = new StockValor('IBOV');
+$stock = new StockValor('BRFS3');
+$stock->setIdClientEasyvest('teste');
+$tucker = $stock->getValue();
 
-//$tucker = $stock->getListValue();
-
+var_dump($stock->getLastValueInDate(new DateTime('2021-03-04')));
 
 /**
  * Pegar lista de cotações de um período
@@ -39,4 +42,4 @@ $stock = new StockValor('IBOV',$dateInicio,$dateTermino);
 //$stock->setDateFrom($dateInicio);
 //$stock->setDateTo($dataTermino);
 
-var_dump($stock->getLastValueInDate(new DateTime('2021-02-18')));
+var_dump($stock->getLastValueInDate(new DateTime('2021-02-18'),ManipulaStockExchange::TYPE_STOCK_INDEX));
