@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./vendor/bin/phpunit --testdox --verbose -c phpunit.xml
