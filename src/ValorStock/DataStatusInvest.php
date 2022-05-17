@@ -6,5 +6,4 @@ use StockValor\Impl\DataStatusInvestAbstract;
 
 class DataStatusInvest extends DataStatusInvestAbstract
 {
-
 }

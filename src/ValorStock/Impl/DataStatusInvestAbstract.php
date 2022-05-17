@@ -5,7 +5,7 @@ namespace StockValor\Impl;
 abstract class DataStatusInvestAbstract implements DataImpl
 {
 
-
+    public static $DATE_FORMAT_BR = 'd/m/y H:i';
     public function __construct(private string $ticker,
                                 private int $type = 0,
                                 private array $currence = [1]

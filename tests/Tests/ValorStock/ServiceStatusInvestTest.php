@@ -4,8 +4,11 @@ namespace Tests\Tests\ValorStock;
 
 use PHPUnit\Framework\TestCase;
 use StockValor\DataStatusInvest;
+use StockValor\Impl\DataResponseAbstract;
+use StockValor\Impl\DataStatusInvestAbstract;
 use StockValor\ServiceStatusInvest;
-
+use StockValor\Value;
+use DateTime;
 class ServiceStatusInvestTest extends TestCase
 {
     /**
@@ -18,8 +21,22 @@ class ServiceStatusInvestTest extends TestCase
 
         $responseData = $serviceStatusInvest->getDataFromUrl($dataRequest);
 
-        $this->assertIsArray($responseData);
-        $this->assertCount(1,$responseData);
-        $this->assertObjectHasAttribute('prices',$responseData[0]);
+        $this->assertInstanceOf(DataResponseAbstract::class,$responseData);
+
+    }
+
+    /**
+     * @test
+     */
+    public function findLastFromTicker()
+    {
+        $serviceStatusInvest = new ServiceStatusInvest();
+        $dataRequest = new DataStatusInvest('BRFS3');
+
+        $responseData = $serviceStatusInvest->getLastValue($dataRequest);
+        $this->assertInstanceOf(Value::class,$responseData);
+        $this->assertIsFloat($responseData->getPrice());
+        $this->assertInstanceOf(DateTime::class,$responseData->getDate());
+
     }
 }
