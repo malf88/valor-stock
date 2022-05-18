@@ -4,11 +4,12 @@ namespace StockValor;
 use \DateTime;
 class Value
 {
-    public function __construct(
-        private float $price,
-        private DateTime $date
-    )
+    private float $price;
+    private DateTime $date;
+    public function __construct(float $price, DateTime $date)
     {
+        $this->price = $price;
+        $this->date = $date;
     }
 
     /**
