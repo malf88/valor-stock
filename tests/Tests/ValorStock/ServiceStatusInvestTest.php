@@ -5,7 +5,6 @@ namespace Tests\Tests\ValorStock;
 use PHPUnit\Framework\TestCase;
 use StockValor\DataStatusInvest;
 use StockValor\Impl\DataResponseAbstract;
-use StockValor\Impl\DataStatusInvestAbstract;
 use StockValor\ServiceStatusInvest;
 use StockValor\Value;
 use DateTime;

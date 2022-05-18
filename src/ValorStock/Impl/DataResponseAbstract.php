@@ -6,11 +6,12 @@ use StockValor\Value;
 use \DateTime;
 class DataResponseAbstract
 {
-    public function __construct(
-        private string $currency,
-        private array $prices
-    )
+    private string $currency;
+    private array $prices;
+    public function __construct(string $currency, array $prices)
     {
+        $this->currency = $currency;
+        $this->prices = $prices;
     }
 
     /**

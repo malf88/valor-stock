@@ -6,12 +6,14 @@ abstract class DataStatusInvestAbstract implements DataImpl
 {
 
     public static $DATE_FORMAT_BR = 'd/m/y H:i';
-    public function __construct(private string $ticker,
-                                private int $type = 0,
-                                private array $currence = [1]
-    )
+    private string $ticker;
+    private int $type;
+    private array $currence;
+    public function __construct(string $ticker, int $type = 0, array $currence = [1])
     {
-
+        $this->ticker = $ticker;
+        $this->type = $type;
+        $this->currence = $currence;
     }
 
     /**
