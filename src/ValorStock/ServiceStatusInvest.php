@@ -2,6 +2,7 @@
 
 namespace StockValor;
 
+use StockValor\Exceptions\ServiceException;
 use StockValor\Helpers\DateHelper;
 use StockValor\Impl\DataImpl;
 use StockValor\Impl\DataResponseAbstract;
@@ -24,13 +25,20 @@ class ServiceStatusInvest implements ServiceImpl
                 ['form_params' => $dataStatusInvest->toData()]
             );
         $data = json_decode($dataResponse->getBody()->getContents());
+        if(count($data[0]->prices) == 0) throw new ServiceException('Ticker not found');
+
         return new DataResponseStatusInvest($data[0]->currency, $data[0]->prices);
     }
 
     public function getLastValue(DataImpl $dataStatusInvest):Value
     {
-        $responseData = $this->getDataFromUrl($dataStatusInvest);
-        $prices = $responseData->getPrices();
-        return end($prices);
+        try{
+            $responseData = $this->getDataFromUrl($dataStatusInvest);
+            $prices = $responseData->getPrices();
+            return end($prices);
+        }catch (ServiceException $e){
+            throw $e;
+        }
+
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Tests\ValorStock;
 
 use PHPUnit\Framework\TestCase;
 use StockValor\DataStatusInvest;
+use StockValor\Exceptions\ServiceException;
 use StockValor\Impl\DataResponseAbstract;
 use StockValor\ServiceStatusInvest;
 use StockValor\Value;
@@ -36,6 +37,19 @@ class ServiceStatusInvestTest extends TestCase
         $this->assertInstanceOf(Value::class,$responseData);
         $this->assertIsFloat($responseData->getPrice());
         $this->assertInstanceOf(DateTime::class,$responseData->getDate());
+
+    }
+
+    /**
+     * @test
+     */
+    public function findLastFromTickerAndNotFound()
+    {
+        $serviceStatusInvest = new ServiceStatusInvest();
+        $dataRequest = new DataStatusInvest('IBOX');
+        $this->expectException(ServiceException::class);
+        $responseData = $serviceStatusInvest->getLastValue($dataRequest);
+
 
     }
 }
