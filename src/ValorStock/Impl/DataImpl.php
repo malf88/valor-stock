@@ -4,6 +4,6 @@ namespace StockValor\Impl;
 
 interface DataImpl
 {
-    public function toData():array;
+    public function toData();
 
 }

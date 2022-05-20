@@ -2,7 +2,7 @@
 
 namespace StockValor\Impl;
 
-abstract class DataStatusInvestAbstract implements DataImpl
+abstract class DataAbstract implements DataImpl
 {
 
     public static $DATE_FORMAT_BR = 'd/m/y H:i';
@@ -64,7 +64,7 @@ abstract class DataStatusInvestAbstract implements DataImpl
         $this->currence = $currence;
     }
 
-    public function toData(): array
+    public function toData()
     {
         return [
             'ticker'    => $this->getTicker(),

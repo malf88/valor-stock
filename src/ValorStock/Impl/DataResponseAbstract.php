@@ -6,8 +6,8 @@ use StockValor\Value;
 use \DateTime;
 class DataResponseAbstract
 {
-    private string $currency;
-    private array $prices;
+    protected string $currency;
+    protected array $prices;
     public function __construct(string $currency, array $prices)
     {
         $this->currency = $currency;
@@ -27,13 +27,13 @@ class DataResponseAbstract
      */
     public function getPrices(): array
     {
-        $prices = [];
-        foreach ($this->prices as $price){
-            $prices[] = new Value(
-                $price->price,
-                DateTime::createFromFormat(DataStatusInvestAbstract::$DATE_FORMAT_BR,$price->date)
-            );
-        }
-        return $prices;
+       return [
+           new Value(
+            $this->prices[0]->price,
+            $this->prices[0]->date
+           )
+       ];
     }
+
+
 }

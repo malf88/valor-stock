@@ -3,7 +3,6 @@
 namespace StockValor;
 
 use StockValor\Exceptions\ServiceException;
-use StockValor\Helpers\DateHelper;
 use StockValor\Impl\DataImpl;
 use StockValor\Impl\DataResponseAbstract;
 use StockValor\Impl\ServiceImpl;

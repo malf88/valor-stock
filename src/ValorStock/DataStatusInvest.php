@@ -2,8 +2,8 @@
 
 namespace StockValor;
 
-use StockValor\Impl\DataStatusInvestAbstract;
+use StockValor\Impl\DataAbstract;
 
-class DataStatusInvest extends DataStatusInvestAbstract
+class DataStatusInvest extends DataAbstract
 {
 }
