@@ -4,21 +4,21 @@ namespace Tests\Tests\ValorStock;
 
 use PHPUnit\Framework\TestCase;
 use StockValor\DataStatusInvest;
+use StockValor\DataYahooFinance;
 use StockValor\Exceptions\ServiceException;
 use StockValor\Impl\DataResponseAbstract;
-use StockValor\ServiceIndexStatusInvest;
 use StockValor\ServiceIndexYahooFinance;
 use StockValor\Value;
 use DateTime;
-class ServiceIndexStatusInvestTest extends TestCase
+class ServiceIndexYahooFinanceTest extends TestCase
 {
     /**
      * @test
      */
     public function findDataFromTicker()
     {
-        $serviceStatusInvest = new ServiceIndexStatusInvest();
-        $dataRequest = new DataStatusInvest('IBOV');
+        $serviceStatusInvest = new ServiceIndexYahooFinance();
+        $dataRequest = new DataYahooFinance('BVSP');
 
         $responseData = $serviceStatusInvest->getDataFromUrl($dataRequest);
 
@@ -31,8 +31,8 @@ class ServiceIndexStatusInvestTest extends TestCase
      */
     public function findLastFromTicker()
     {
-        $serviceStatusInvest = new ServiceIndexStatusInvest();
-        $dataRequest = new DataStatusInvest('IBOV');
+        $serviceStatusInvest = new ServiceIndexYahooFinance();
+        $dataRequest = new DataYahooFinance('BVSP');
 
         $responseData = $serviceStatusInvest->getLastValue($dataRequest);
         $this->assertInstanceOf(Value::class,$responseData);
@@ -46,8 +46,8 @@ class ServiceIndexStatusInvestTest extends TestCase
      */
     public function findLastFromTickerAndNotFound()
     {
-        $serviceStatusInvest = new ServiceIndexStatusInvest();
-        $dataRequest = new DataStatusInvest('IBOX');
+        $serviceStatusInvest = new ServiceIndexYahooFinance();
+        $dataRequest = new DataYahooFinance('IBOX');
         $this->expectException(ServiceException::class);
         $responseData = $serviceStatusInvest->getLastValue($dataRequest);
 

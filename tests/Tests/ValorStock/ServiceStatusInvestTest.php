@@ -4,6 +4,7 @@ namespace Tests\Tests\ValorStock;
 
 use PHPUnit\Framework\TestCase;
 use StockValor\DataStatusInvest;
+use StockValor\DataYahooFinance;
 use StockValor\Exceptions\ServiceException;
 use StockValor\Impl\DataResponseAbstract;
 use StockValor\ServiceStatusInvest;
