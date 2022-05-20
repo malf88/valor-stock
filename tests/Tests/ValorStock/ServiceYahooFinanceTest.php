@@ -44,6 +44,21 @@ class ServiceYahooFinanceTest extends TestCase
     /**
      * @test
      */
+    public function findLastFromTickerETF()
+    {
+        $serviceStatusInvest = new ServiceYahooFinance();
+        $dataRequest = new DataYahooFinance('IVVB11');
+
+        $responseData = $serviceStatusInvest->getLastValue($dataRequest);
+        $this->assertInstanceOf(Value::class,$responseData);
+        $this->assertIsFloat($responseData->getPrice());
+        $this->assertInstanceOf(DateTime::class,$responseData->getDate());
+
+    }
+
+    /**
+     * @test
+     */
     public function findLastFromTickerAndNotFound()
     {
         $serviceStatusInvest = new ServiceYahooFinance();

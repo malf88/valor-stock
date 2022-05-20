@@ -22,7 +22,8 @@ class ServiceYahooFinance implements ServiceImpl
         if($quoteStock == null) throw new ServiceException('Ticker not found');
 
 
-        return new DataResponseYahooFinance($quoteStock->getFinancialCurrency(),
+        return new DataResponseYahooFinance(
+            $quoteStock->getFinancialCurrency() ?? $quoteStock->getCurrency(),
             [
                 (object)[
                     'date' => $quoteStock->getRegularMarketTime(),
